@@ -64,34 +64,60 @@ for(let i=0;i<arr.length;i++)
     // let css=document.getElementById("questionNav").childNodes[i]
 }
 let openQues = (questionNo)=>{
-    console.log(arr[questionNo-1])
+   // console.log(arr[questionNo-1])
     showQuestion.call(arr[questionNo-1],questionNo)
     
 }
 
 let showQuestion=function(questionNo){
-    console.log("2")
-    console.log(this);
+    //console.log("2")
+    //console.log(this);
     document.getElementById('questionArea').innerHTML=`<div class="row" style="background-color:transparent;height:20%;width:131%">
     Q${questionNo}. ${this.question}
 </div> 
 <div class="row" style="background-color:transparent;height:20%;width:131%">
-<input type="radio" name="options">&nbsp;&nbsp;&nbsp;&nbsp;A. ${this.options[0]} 
+<input type="radio" name="options" id="option1">&nbsp;&nbsp;&nbsp;&nbsp;A. ${this.options[0]} 
 </div>
 <div class="row" style="background-color:transparent;height:20%;width:131%">
-<input type="radio" name="options">&nbsp;&nbsp;&nbsp;&nbsp;B. ${this.options[0]} 
+<input type="radio" name="options" id="option2">&nbsp;&nbsp;&nbsp;&nbsp;B. ${this.options[1]} 
 </div>  
 <div class="row" style="background-color:transparent;height:20%;width:131%">
-<input type="radio" name="options">&nbsp;&nbsp;&nbsp;&nbsp;C. ${this.options[0]} 
+<input type="radio" name="options" id="option3">&nbsp;&nbsp;&nbsp;&nbsp;C. ${this.options[2]} 
 </div>
 <div class="row" style="background-color:transparent;height:20%;width:131%">
-<input type="radio" name="options">&nbsp;&nbsp;&nbsp;&nbsp;D. ${this.options[0]} 
+<input type="radio" name="options" id="option4">&nbsp;&nbsp;&nbsp;&nbsp;D. ${this.options[3]} 
 </div>  
-</div>`
+</div>
+<div class="col-sm-2 offset-sm-4 "><button type="button" class="btn btn-info pt-80">Mark</button>
+                        </div>
+                        <div class="col-sm-2"><button type="button" class="btn btn-info pt-80">Clear</button></div>
+                        <div class="col-sm-2 "><button type="button" class="btn btn-primary pt-80" onclick="previous(${questionNo})">Previous</button>
+                        </div>
+                        <div class="col-sm-2 "><button type="button" class="btn btn-success pt-80" onclick="saveNext(${questionNo})" >Save & Next</button>
+                        </div>`;
+
+
+if(this.answer!=0){
+document.getElementById(`option${this.answer}`).checked=true;
 }
 
-let saveNext=()=>{
-    
+
+
+}
+
+let saveNext=(questionNo)=>{
+    console.log(arr[questionNo-1])
+    for(let i=1;i<=4;i++){
+    if(document.getElementById(`option${i}`).checked===true)
+    {arr[questionNo-1].answer=i;
+    break;
+    }
+    }
+    console.log(arr[questionNo-1])
+    openQues(questionNo+1);
+}
+let previous=(questionNo)=>{
+    openQues(questionNo-1);
 }
 
 

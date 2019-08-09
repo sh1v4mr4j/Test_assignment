@@ -50,6 +50,8 @@ let  arr=[{
     review:false
 },]
 
+function startTest(){
+
 
 for(let i=0;i<arr.length;i++)
 {
@@ -57,11 +59,13 @@ for(let i=0;i<arr.length;i++)
     let button=document.createElement("button");
     button.setAttribute("id",`q${i+1}`)
     button.setAttribute("onclick",`openQues(${i+1})`);
-    button.setAttribute("class","btn btn-transparent")
-    let text=document.createTextNode(`question ${i+1}`);
+    button.setAttribute("class","btn btn-transparent mt-2")
+    let text=document.createTextNode(`Question ${i+1}`);
     button.appendChild(text);
     document.getElementById("questionNav").appendChild(button);
     // let css=document.getElementById("questionNav").childNodes[i]
+}
+openQues(1);
 }
 let openQues = (questionNo)=>{
    // console.log(arr[questionNo-1])
@@ -88,7 +92,7 @@ let showQuestion=function(questionNo){
 <input type="radio" name="options" id="option4">&nbsp;&nbsp;&nbsp;&nbsp;D. ${this.options[3]} 
 </div>  
 </div>
-<div class="col-sm-2 offset-sm-4 "><button type="button" class="btn btn-info pt-80">Review</button>
+<div class="col-sm-2 offset-sm-4 "><button type="button" class="btn btn-info pt-80" onclick="reviewQuestion(${questionNo})">Review</button>
                         </div>
                         <div class="col-sm-2"><button type="button" class="btn btn-info pt-80" onclick="clearResponse(${questionNo})">Clear</button></div>
                         <div class="col-sm-2 "><button type="button" class="btn btn-primary pt-80" onclick="previous(${questionNo})">Previous</button>
@@ -100,9 +104,6 @@ let showQuestion=function(questionNo){
 if(this.answer!=0){
 document.getElementById(`option${this.answer}`).checked=true;
 }
-
-
-
 }
 
 let saveNext=(questionNo)=>{
@@ -116,6 +117,8 @@ let saveNext=(questionNo)=>{
     //console.log(arr[questionNo-1])
     openQues(questionNo+1);
 }
+
+
 let previous=(questionNo)=>{
     for(let i=1;i<=4;i++){
         if(document.getElementById(`option${i}`).checked===true)
@@ -128,6 +131,7 @@ let previous=(questionNo)=>{
     else
     alert("you are alredy in the 1st question");
 }
+
 
 let clearResponse=(questionNo)=>{
     if(arr[questionNo-1].answer==0)
@@ -151,6 +155,17 @@ let clearResponse=(questionNo)=>{
         arr[questionNo-1].answer=0;
     }
 
+}
+
+let reviewQuestion=(questionNo)=>{
+    if(arr[questionNo-1].review==false){
+        arr[questionNo-1].review=true;
+        document.getElementById(`q${questionNo}`).style.color="red";
+    }
+    else{
+        arr[questionNo-1].review=false;
+        document.getElementById(`q${questionNo}`).style.color="black";
+    }
 }
 
 

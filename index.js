@@ -74,31 +74,59 @@ let openQues = (questionNo)=>{
 }
 
 let showQuestion=function(questionNo){
-    //console.log("2")
-    //console.log(this);
-    document.getElementById('questionArea').innerHTML=`<div class="row" style="background-color:transparent;height:20%;width:131%">
-    Q${questionNo}. ${this.question}
-</div> 
-<div class="row" style="background-color:transparent;height:20%;width:131%">
-<input type="radio" name="options" id="option1">&nbsp;&nbsp;&nbsp;&nbsp;A. ${this.options[0]} 
-</div>
-<div class="row" style="background-color:transparent;height:20%;width:131%">
-<input type="radio" name="options" id="option2">&nbsp;&nbsp;&nbsp;&nbsp;B. ${this.options[1]} 
-</div>  
-<div class="row" style="background-color:transparent;height:20%;width:131%">
-<input type="radio" name="options" id="option3">&nbsp;&nbsp;&nbsp;&nbsp;C. ${this.options[2]} 
-</div>
-<div class="row" style="background-color:transparent;height:20%;width:131%">
-<input type="radio" name="options" id="option4">&nbsp;&nbsp;&nbsp;&nbsp;D. ${this.options[3]} 
-</div>  
-</div>
-<div class="col-sm-2 offset-sm-4 "><button type="button" class="btn btn-info pt-80" onclick="reviewQuestion(${questionNo})">Review</button>
-                        </div>
-                        <div class="col-sm-2"><button type="button" class="btn btn-info pt-80" onclick="clearResponse(${questionNo})">Clear</button></div>
-                        <div class="col-sm-2 "><button type="button" class="btn btn-primary pt-80" onclick="previous(${questionNo})">Previous</button>
-                        </div>
-                        <div class="col-sm-2 "><button type="button" class="btn btn-success pt-80" onclick="saveNext(${questionNo})" >Next</button>
-                        </div>`;
+    // console.log("2")
+    // console.log(this);
+    if(questionNo!==10)
+    {
+        document.getElementById('questionArea').innerHTML=`<div class="row" style="background-color:transparent;height:20%;width:131%">
+        Q${questionNo}. ${this.question}
+        </div> 
+        <div class="row" style="background-color:transparent;height:20%;width:131%">
+            <input type="radio" name="options" id="option1">&nbsp;&nbsp;&nbsp;&nbsp;A. ${this.options[0]} 
+        </div>
+        <div class="row" style="background-color:transparent;height:20%;width:131%">
+            <input type="radio" name="options" id="option2">&nbsp;&nbsp;&nbsp;&nbsp;B. ${this.options[1]} 
+        </div>  
+        <div class="row" style="background-color:transparent;height:20%;width:131%">
+            <input type="radio" name="options" id="option3">&nbsp;&nbsp;&nbsp;&nbsp;C. ${this.options[2]} 
+        </div>
+        <div class="row" style="background-color:transparent;height:20%;width:131%">
+            <input type="radio" name="options" id="option4">&nbsp;&nbsp;&nbsp;&nbsp;D. ${this.options[3]} 
+        </div>  
+        </div>
+        <div class="col-sm-2 offset-sm-4 "><button type="button" class="btn btn-info pt-80" onclick="reviewQuestion(${questionNo})">Review</button>
+        </div>
+        <div class="col-sm-2"><button type="button" class="btn btn-info pt-80" onclick="clearResponse(${questionNo})">Clear</button></div>
+        <div class="col-sm-2 "><button type="button" class="btn btn-primary pt-80" onclick="previous(${questionNo})">Previous</button>
+        </div>
+        <div class="col-sm-2 "><button type="button" class="btn btn-success pt-80" onclick="saveNext(${questionNo})" >Next</button>
+        </div>`;
+    }
+    else{
+        document.getElementById('questionArea').innerHTML=`<div class="row" style="background-color:transparent;height:20%;width:131%">
+         Q${questionNo}. ${this.question}
+        </div> 
+        <div class="row" style="background-color:transparent;height:20%;width:131%">
+            <input type="radio" name="options" id="option1">&nbsp;&nbsp;&nbsp;&nbsp;A. ${this.options[0]} 
+        </div>
+        <div class="row" style="background-color:transparent;height:20%;width:131%">
+            <input type="radio" name="options" id="option2">&nbsp;&nbsp;&nbsp;&nbsp;B. ${this.options[1]} 
+        </div>  
+        <div class="row" style="background-color:transparent;height:20%;width:131%">
+            <input type="radio" name="options" id="option3">&nbsp;&nbsp;&nbsp;&nbsp;C. ${this.options[2]} 
+        </div>
+        <div class="row" style="background-color:transparent;height:20%;width:131%">
+            <input type="radio" name="options" id="option4">&nbsp;&nbsp;&nbsp;&nbsp;D. ${this.options[3]} 
+        </div>  
+        </div>
+        <div class="col-sm-2 offset-sm-4 "><button type="button" class="btn btn-info pt-80" onclick="reviewQuestion(${questionNo})">Review</button>                </div>
+        <div class="col-sm-2"><button type="button" class="btn btn-info pt-80" onclick="clearResponse(${questionNo})">Clear</button></div>
+        <div class="col-sm-2 "><button type="button" class="btn btn-primary pt-80" onclick="previous(${questionNo})">Previous</button>
+        </div>
+        <div class="col-sm-2 "><button type="button" class="btn btn-danger pt-80" onclick="endTest()">End Test</button>
+        </div>`;
+
+    }
 
 
 if(this.answer!=0){
@@ -122,10 +150,11 @@ let saveNext=(questionNo)=>{
 let previous=(questionNo)=>{
     for(let i=1;i<=4;i++){
         if(document.getElementById(`option${i}`).checked===true)
-        {arr[questionNo-1].answer=i;
-        break;
+        {
+            arr[questionNo-1].answer=i;
+            break;
         }
-        }
+    }
     if(questionNo!=1)
     openQues(questionNo-1);
     else
@@ -135,21 +164,21 @@ let previous=(questionNo)=>{
 
 let clearResponse=(questionNo)=>{
     if(arr[questionNo-1].answer==0)
-      {
+        {
           //console.log("idhaaaa")
           for(let i=1;i<=4;i++)
-          {
+            {
                   
               if(document.getElementById(`option${i}`).checked===true)
-              {
+                {
                   //console.log(document.getElementById(`option${i}`).checked)
                   document.getElementById(`option${i}`).checked=false;
                   //console.log(document.getElementById(`option${i}`).checked)
 
-              }
-          }
+                }
+            }
 
-      }
+        }
     else{
         document.getElementById(`option${arr[questionNo-1].answer}`).checked===false;
         arr[questionNo-1].answer=0;
@@ -166,6 +195,12 @@ let reviewQuestion=(questionNo)=>{
         arr[questionNo-1].review=false;
         document.getElementById(`q${questionNo}`).style.color="black";
     }
+}
+
+let endTest=()=>{
+    console.log("333")
+    document.getElementById("main").innerHTML=`<div class="container-fluid"><h1>Thank you</h1></div>`;
+    document.getElementById("main2").innerHTML=``;
 }
 
 
